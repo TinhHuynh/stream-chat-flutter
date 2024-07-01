@@ -99,6 +99,7 @@ class StreamMessageWidget extends StatefulWidget {
     this.imageAttachmentThumbnailResizeType = 'clip',
     this.imageAttachmentThumbnailCropType = 'center',
     this.attachmentActionsModalBuilder,
+    this.showFailedIndicator = true,
   });
 
   /// {@template onMentionTap}
@@ -369,6 +370,11 @@ class StreamMessageWidget extends StatefulWidget {
   final String /*center|top|bottom|left|right*/
       imageAttachmentThumbnailCropType;
 
+  /// {@template showFailedIndicator}
+  /// Show the failed message indicator
+  /// {@endtemplate}
+  final bool showFailedIndicator;
+
   /// {@template copyWith}
   /// Creates a copy of [StreamMessageWidget] with specified attributes
   /// overridden.
@@ -432,6 +438,7 @@ class StreamMessageWidget extends StatefulWidget {
     String? imageAttachmentThumbnailResizeType,
     String? imageAttachmentThumbnailCropType,
     AttachmentActionsBuilder? attachmentActionsModalBuilder,
+    bool? showFailedIndicator,
   }) {
     return StreamMessageWidget(
       key: key ?? this.key,
@@ -499,6 +506,7 @@ class StreamMessageWidget extends StatefulWidget {
           this.imageAttachmentThumbnailCropType,
       attachmentActionsModalBuilder:
           attachmentActionsModalBuilder ?? this.attachmentActionsModalBuilder,
+      showFailedIndicator: showFailedIndicator ?? this.showFailedIndicator,
     );
   }
 
@@ -621,6 +629,8 @@ class _StreamMessageWidgetState extends State<StreamMessageWidget>
 
   bool get shouldShowDeleteAction => widget.showDeleteMessage || isDeleteFailed;
 
+  bool get showFailedIndicator => widget.showFailedIndicator;
+
   @override
   bool get wantKeepAlive => widget.message.attachments.isNotEmpty;
 
@@ -738,6 +748,7 @@ class _StreamMessageWidgetState extends State<StreamMessageWidget>
                           widget.bottomRowBuilderWithDefaultWidget,
                       onUserAvatarTap: widget.onUserAvatarTap,
                       userAvatarBuilder: widget.userAvatarBuilder,
+                      showFailedIndicator: showFailedIndicator,
                     );
                   }),
                 ),
