@@ -221,6 +221,8 @@ class MessageWidgetContent extends StatelessWidget {
   /// {@macro showFailedIndicator}
   final bool showFailedIndicator;
 
+  bool get shouldShowFailedIndicator => isFailedState && showFailedIndicator;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -324,7 +326,7 @@ class MessageWidgetContent extends StatelessWidget {
                                       )
                                     : MessageCard(
                                         message: message,
-                                        isFailedState: isFailedState,
+                                        isFailedState: shouldShowFailedIndicator ,
                                         showUserAvatar: showUserAvatar,
                                         messageTheme: messageTheme,
                                         hasQuotedMessage: hasQuotedMessage,
@@ -415,7 +417,7 @@ class MessageWidgetContent extends StatelessWidget {
                 ],
               ),
             ),
-            if (isFailedState && showFailedIndicator)
+            if (shouldShowFailedIndicator)
               Positioned(
                 right: reverse ? 0 : null,
                 left: reverse ? null : 0,
